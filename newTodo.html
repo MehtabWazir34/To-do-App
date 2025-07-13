@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"> </script>
+
+    <title>My todo tasks</title>
+</head>
+<body class="bg-blue-900 w-full flex justify-center align-center">
+    <div class="conatiner p-6 w-full bg-white max-w-[400px] p-10 mx-auto mb-5 mt-24 border-2 rounded-lg">
+        <h2>My Todo list:</h2>
+        <div class="inContainer flex">
+            <input type="text" placeholder="Type here..." class="texts w-full bg-gray-300 rounded-lg p-2">
+        <button title="Add Task?" onclick="addTask()" value="Add Task" class="addTask bg-amber-300 rounded-lg ml-[-12px] p-2 cursor-pointer w-1/2"> Add Task
+        </button>
+        </div>
+        <ul class="taskList">
+
+        </ul>
+    </div>
+</body>
+<script>
+    const texts = document.getElementsByClassName("texts")[0];
+    const taskList = document.querySelector("ul");
+
+    function addTask(){
+        if(texts.value.trim()===''){
+            alert("Write your task to add.");
+            return;
+        } else {
+            const newTask = document.createElement("li");
+            newTask.innerHTML = texts.value;
+            newTask.className = "bg-gray-100 relative border-gray-400 cursor-pointer pl-[50px]  border-1 rounded-xl p-3 m-[5px] text-[18px] before:content-[''] before:absolute before:w-[28px] before:h-[28px] before:rounded-full before:bg-[url('/unch.png')] before:bg-cover before:bg-center before:top-3 before:left-2 ";
+            
+
+            const removeTask = document.createElement("span");
+            removeTask.innerHTML = '\u00d7';
+            removeTask.className ="absolute text-center top-[5px] right-0 leading-10 text-black w-10 h-10 text-[20px] hover:rounded-full hover:bg-blue-300 cursor-pointer ";
+            newTask.appendChild(removeTask);
+            taskList.appendChild(newTask);
+            texts.value = '';
+            save();
+        }
+    };
+
+function check(x){
+    x.target.classList.add("line-through");
+    x.target.classList.add("font-bold");
+    x.target.classList.remove("before:bg-[url('/unch.png')]");
+    x.target.classList.add("before:bg-[url('/che.png')]");
+}
+function uncheck(x){
+    x.target.classList.remove("line-through");
+    x.target.classList.remove("font-bold");
+    x.target.classList.remove("before:bg-[url('/che.png')]");
+    x.target.classList.add("before:bg-[url('/unch.png')]");
+
+}
+    taskList.addEventListener("click", (x)=>{
+        if(x.target.tagName==='LI'){
+            x.target.classList.toggle("check");
+            if(x.target.classList.contains('check')){
+                check(x);
+            } else{
+                uncheck(x);
+            }
+        } else if(x.target.tagName==='SPAN'){
+            x.target.parentElement.remove();
+        }
+        save();
+    })
+
+    function save(){
+        localStorage.setItem("setData", taskList.innerHTML);
+    }
+    function getSave(){
+        taskList.innerHTML = localStorage.getItem("setData");
+    }
+</script>
+</html>

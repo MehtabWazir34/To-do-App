@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="retry.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="inner">
+        <h2>Todo List:</h2>
+        <div class="inBox">
+            <input type="text" class="input" title="Write here...">
+            <input onclick="add()" type="button" id="add" value="Add Task">
+        </div>
+        <div>
+            <ul class="list">
+                
+            </ul>
+        </div>
+    </div>
+    <script>
+        const inVal = document.getElementsByClassName("input")[0];
+        const listVal = document.getElementsByClassName("list")[0];
+
+        function add(){
+            if(inVal.value === ''){
+                alert("Hmmmm");
+            } else{
+                let newI = document.createElement('li');
+                newI.innerHTML = inVal.value;
+                listVal.appendChild(newI);
+
+                let re = document.createElement('span');
+                re.innerHTML = '\u00d7';
+                re.title = "Remove task?";
+                newI.appendChild(re);
+
+                inVal.value = '';
+                save();
+            }
+        }
+        listVal.addEventListener('click', function(a){
+            if(a.target.tagName=== 'LI'){
+                a.target.classList.toggle('che');
+                save();
+            } else{
+                if(a.target.tagName=== 'SPAN'){
+                    a.target.parentElement.remove();
+                    save();
+                }
+            }
+        }, false)
+        
+        function save(){
+            localStorage.setItem('newdata', listVal.innerHTML);
+        }
+        function show(){
+            listVal.innerHTML = localStorage.getItem("newdata");
+        }
+    </script>
+</body>
+</html>

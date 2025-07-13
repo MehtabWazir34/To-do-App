@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: darkblue;
+
+}
+.inner{
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    width: 100%;
+    background-color: lightblue;
+    border-radius: 1rem;
+    
+    max-width: 60%;
+
+}
+.inBox{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* border: 1rem; */
+    border: none;
+    outline: none;
+    background-color: red;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+}
+.inBox input, #add{
+    padding: 8px;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    background-color: transparent;
+    
+}
+.inBox .input{
+    flex: 1;
+    color: white;
+}
+.inBox .input:focus{
+    background-color: lightcoral;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    color: black;
+}
+.inBox #add{
+    background-color: orange;
+    cursor: pointer;
+    font-weight: 550;
+}
+ul li{
+    position:relative;
+    list-style: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 18px;
+    padding: 12px 8px 12px 50px;
+    border: 1px solid lightcoral;
+    border-radius: 1rem;
+    
+}
+ul li::before{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    
+    content: '';
+    position: absolute;
+    background-image: url(unch.png);
+    background-size: cover;
+    background-position: center;
+    top: 12px;
+    left: 8px;
+}
+
+ul li.che{
+    text-decoration: line-through;
+    color: gray;
+    font-weight: 600;
+}
+ul li.che::before{
+    background-image: url(che.png);
+}
+ul li span{
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+}
+ul li span:hover{
+    background-color: lightslategray;
+    color: black;
+}

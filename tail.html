@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+  
+    <div class="w-full min-h-screen bg-blue-900 p-2.5">
+  <div class="w-full max-w-[500px] bg-slate-800 p-10 pb-[70px] mx-auto mt-24 mb-5 rounded-lg">
+    <h2 class="text-orange-500 text-[25px] mb-4">To do tasks!</h2>
+
+    <div class="mb-[30px] rounded-lg bg-blue-200 flex justify-between">
+      <input type="text" class="task bg-transparent flex-1 text-[15px] p-2.5 rounded-lg focus:outline-none" placeholder="Write a task" />
+      <button 
+        onclick="addTask()"
+        class="add w-[100px] bg-orange-500 text-white text-[15px] p-2.5 rounded-lg cursor-pointer">
+        Add Task
+      </button>
+    </div>
+
+    <ul>
+      
+    </ul>
+  </div>
+</div>
+<script>
+
+  const TaskIn = document.querySelector(".task");
+  const ListContainer = document.querySelector("ul");
+
+  function addTask() {
+    if (TaskIn.value === "") {
+      alert("Add task first");
+      return;
+    }
+
+    // Create a new list item
+    let newTask = document.createElement("li");
+    newTask.className =
+      "ListItems text-white text-[18px] p-3 pl-[50px] font-light cursor-pointer relative border border-gray-400 rounded-xl m-[5px] before:content-[''] before:absolute before:w-[28px] before:h-[28px] before:rounded-full before:bg-[url('/unch.png')] before:bg-cover before:bg-center before:top-3 before:left-2";
+    newTask.innerHTML = TaskIn.value;
+
+    // Create a remove (×) span
+    let removeTask = document.createElement("span");
+    removeTask.innerHTML = "\u00d7";
+    removeTask.title = "Remove task?";
+    removeTask.className =
+      "absolute w-10 h-10 text-[25px] text-center top-[5px] right-0 leading-10 rounded-full text-[#fffafa] cursor-pointer hover:bg-blue-200 hover:text-black";
+
+    newTask.appendChild(removeTask);
+    ListContainer.appendChild(newTask);
+    TaskIn.value = "";
+    save();
+  }
+function check(x){
+          x.target.classList.add("line-through", "text-orange-400");
+          x.target.classList.remove("text-white");
+          x.target.classList.add("before:bg-[url('/che.png')]");
+          x.target.classList.remove("before:bg-[url('/unch.png')]");
+        
+}
+
+function uncheck(x){
+   x.target.classList.remove("line-through", "text-orange-400");
+          x.target.classList.add("text-white");
+x.target.classList.remove("before:bg-[url('/che.png')]");
+      x.target.classList.add("before:bg-[url('/unch.png')]");        
+}
+
+ListContainer.addEventListener("click", (x)=>{
+  if(x.target.tagName ==='LI'){
+    x.target.classList.toggle('checked');
+    if(x.target.classList.contains('checked')){
+      check(x);
+    } else {
+      uncheck(x);
+    }
+    save();
+  } else if(x.target.tagName === 'SPAN'){
+    x.target.parentElement.remove();
+    save();
+  }
+})
+
+  function save() {
+    localStorage.setItem("todoData", ListContainer.innerHTML);
+  }
+
+  function getSave() {
+    const saved = localStorage.getItem("todoData");
+    if(saved){
+      ListContainer.innerHTML = saved;
+    }
+  }
+
+  getSave();
+
+</script>
+</body>
+</html>
